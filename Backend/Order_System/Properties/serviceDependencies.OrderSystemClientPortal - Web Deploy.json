@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/OrderSystemapi/apis/OrderSystem",
+      "type": "apis.azure"
+    },
+    "identityapp1": {
+      "connectionInfo": "App registration: OrderSystem, Tenant: Default Directory (ndlovuntandoyenkosi11gmail.onmicrosoft.com - Microsoft Entra ID)",
+      "secretStore": "AzureAppSettings",
+      "type": "identityapp.secretStore",
+      "connectionId": "AzureAD:ClientSecret"
+    },
+    "mssql1": {
+      "serviceConnectorResourceId": "",
+      "secretStore": "AzureAppSettings",
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings:DefaultConnection",
+      "dynamicId": null
+    }
+  }
+}

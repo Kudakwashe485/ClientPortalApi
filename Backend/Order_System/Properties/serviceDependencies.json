@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "apis1": {
+      "type": "apis"
+    },
+    "identityapp1": {
+      "type": "identityapp",
+      "connectionId": "AzureAD:ClientSecret"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:DefaultConnection",
+      "dynamicId": null
+    }
+  }
+}
