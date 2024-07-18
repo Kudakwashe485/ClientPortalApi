@@ -52,7 +52,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+          path: ${{ github.workspace }}/myapp  # Ensure to download the artifact to the correct path
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
