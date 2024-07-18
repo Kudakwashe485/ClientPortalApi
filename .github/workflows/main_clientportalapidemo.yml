@@ -20,16 +20,18 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: |
+          cd Backend  # Navigate to the directory where Order_System.sln is located
+          dotnet restore Order_System.sln
 
       - name: Build with dotnet
         run: |
-          cd path/to/your/project  # Replace with actual path where .csproj is located
+          cd Backend  # Navigate to the directory where Order_System.sln is located
           dotnet build --configuration Release
 
       - name: dotnet publish
         run: |
-          cd path/to/your/project  # Replace with actual path where .csproj is located
+          cd Backend  # Navigate to the directory where Order_System.sln is located
           dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
