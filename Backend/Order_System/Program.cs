@@ -20,8 +20,24 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(
 		include.AllowAnyOrigin();
 	}));
 
+// Add Microsoft Identity Web API Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+
+// Additional JWT Bearer token validation parameters
+builder.Services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+	options.RequireHttpsMetadata = false;
+	options.SaveToken = true;
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuerSigningKey = true,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("veryverysceret.....")),
+		ValidateAudience = false,
+		ValidateIssuer = false,
+		ClockSkew = TimeSpan.Zero
+	};
+});
 
 builder.Services.AddControllers();
 
@@ -65,24 +81,6 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 })
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
-
-builder.Services.AddAuthentication(x =>
-{
-	x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-	x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x =>
-{
-	x.RequireHttpsMetadata = false;
-	x.SaveToken = true;
-	x.TokenValidationParameters = new TokenValidationParameters
-	{
-		ValidateIssuerSigningKey = true,
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("veryverysceret.....")),
-		ValidateAudience = false,
-		ValidateIssuer = false,
-		ClockSkew = TimeSpan.Zero
-	};
-});
 
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, AppUserClaimsPrincipalFactory>();
 
